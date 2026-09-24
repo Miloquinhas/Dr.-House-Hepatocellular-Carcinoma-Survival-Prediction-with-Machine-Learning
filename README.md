@@ -126,19 +126,6 @@ jupyter notebook Dr_House_Analysis.ipynb
 
 Before running, update the path in the "Import Data" cell to `data/hcc_dataset.csv`.
 
----
-
-## Known limitations
-
-- **Range validation is not applied on Submit.** `preprocess_input()` implements the "Value Not Accepted" check, but the Submit button calls `show_selections()`, which skips it.
-- **The app does not use the notebook's cleaning.** It trains directly on the raw CSV, where numeric columns containing `?` are read as text and one-hot encoded. As a result, typed numeric values only influence the prediction if they exactly match a value seen in training, and some inputs (such as `Age`) are effectively ignored.
-- **Evaluation is a single small split.** Imputation and outlier capping are computed on the full dataset before splitting, which can leak information into the test set. Cross-validation would give more reliable estimates.
-
-## Possible improvements
-
-- Share one preprocessing pipeline (imputation, encoding, outlier handling) between the notebook and the app, e.g. with a scikit-learn `Pipeline`.
-- Use cross-validation and report class-wise recall, since missing a patient who will not survive matters more than overall accuracy.
-- Show a predicted probability alongside the label.
 
 ---
 
